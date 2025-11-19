@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cityu.dts.dao.DefectDetailDao">
+
+    <!-- Query all history rows for a given dts id -->
+    <select id="queryDtsDetailListByDtsId" parameterType="int" resultType="com.cityu.dts.model.DtsHistoryInfo">
+        SELECT id, dts_id, state, user_name, description, created_time, updated_time
+        FROM tbl_dts_detail
+        WHERE dts_id = #{dtsId}
+        ORDER BY id DESC
+    </select>
+
+    <!-- Insert a history row and return generated id -->
+    <insert id="insertDtsDetail" parameterType="com.cityu.dts.model.DtsHistoryInfo">
+        INSERT INTO tbl_dts_detail (dts_id, state, user_name, description, created_time, updated_time)
+        VALUES (#{dtsId}, #{state}, #{userName}, #{description}, #{createdTime}, #{updatedTime})
+    </insert>
+
+    <!-- Update a history row by id -->
+    <update id="updateDtsDetail" parameterType="com.cityu.dts.model.DtsHistoryInfo">
+        UPDATE tbl_dts_detail
+        SET state        = #{state},
+            user_name    = #{userName},
+            description  = #{description},
+            updated_time = #{updatedTime}
+        WHERE id = #{id}
+    </update>
+
+    <!-- Delete history row by id -->
+    <delete id="deleteDtsDetailById" parameterType="int">
+        DELETE
+        FROM tbl_dts_detail
+        WHERE id = #{id}
+    </delete>
+</mapper>
+
